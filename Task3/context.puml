@@ -1,0 +1,20 @@
+@startuml context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+LAYOUT_WITH_LEGEND()
+title PropDevelopment — Контекст «Умный дом»
+
+Person(resident, "Собственник/Житель", "Пользуется мобильным приложением")
+System_Boundary(prop, "PropDevelopment") {
+  System(app, "Мобильное приложение PropDev", "iOS/Android")
+  System(core, "Платформа PropDevelopment", "Бизнес-функции и API")
+}
+System_Ext(partner, "Платформа партнёра «Умный дом»", "Домофон, шлагбаум")
+
+Rel(resident, app, "Управляет доступом / получает события")
+Rel(app, core, "Запросы/команды")
+Rel(core, partner, "Команды: открыть дверь/шлагбаум; получение событий")
+Rel(partner, core, "События: распознавание лица/номера авто")
+Rel(core, app, "Пуш-уведомления о событиях")
+
+SHOW_LEGEND()
+@enduml
